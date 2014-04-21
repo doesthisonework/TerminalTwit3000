@@ -14,3 +14,8 @@
 # Ignore all logfiles and tempfiles.
 /log/*.log
 /tmp
+
+# Ignore API key files
+/.api_key
+/.api_secret
+/access_token.yml
