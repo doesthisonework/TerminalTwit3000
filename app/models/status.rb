@@ -6,10 +6,10 @@ class Status < ActiveRecord::Base
   validates :body, :twitter_status_id, :twitter_user_id, presence: true
   validates :twitter_status_id, uniqueness: true
 
-  belongs_to :user,
-    class_name: 'User',
-    foreign_key: :twitter_user_id,
-    primary_key: :twitter_user_id
+  belongs_to  :user,
+              class_name: 'User',
+              foreign_key: :twitter_user_id,
+              primary_key: :twitter_user_id
 
   def self.fetch_by_twitter_user_id!(twitter_user_id)
     statuses = TwitterSession.get(
