@@ -1,6 +1,4 @@
 class Follow < ActiveRecord::Base
-  attr_accessible :twitter_followee_id, :twitter_follower_id
-
   validates :twitter_follower_id, :twitter_followee_id, presence: true
 
   belongs_to  :follower,

@@ -1,6 +1,4 @@
 class User < ActiveRecord::Base
-  attr_accessible :twitter_user_id, :screen_name
-
   validates :screen_name, :twitter_user_id, presence: true, uniqueness: true
 
   has_many  :statuses,
