@@ -1,6 +1,8 @@
 require 'open-uri'
 
 class Status < ActiveRecord::Base
+  attr_accessible :body, :twitter_status_id, :twitter_user_id
+
   validates :body, :twitter_status_id, :twitter_user_id, presence: true
   validates :twitter_status_id, uniqueness: true
 
@@ -10,7 +12,10 @@ class Status < ActiveRecord::Base
     primary_key: :twitter_user_id
 
   def self.fetch_by_twitter_user_id!(twitter_user_id)
-    statuses = TwitterSession.get('statuses/user_timeline', user_id: twitter_user_id)
+    statuses = TwitterSession.get(
+      'statuses/user_timeline', 
+      user_id: twitter_user_id
+    )
 
     saved_status_ids = Status.where(
       twitter_user_id: statuses.first['user']['id_str'] ).
@@ -47,7 +52,6 @@ class Status < ActiveRecord::Base
 
   private
 
-  # from http://stackoverflow.com/questions/2385186/check-if-internet-connection-exists-with-ruby
   def self.internet_connection?
     begin
       true if open("http://www.google.com/")
